@@ -1,0 +1,63 @@
+nodes:
+  - name: gateway-1
+    type: gateway
+    status: active
+  - name: firewall-1
+    type: firewall
+    status: active
+  - name: router-1
+    type: router
+    status: active
+  - name: router-2
+    type: router
+    status: active
+  - name: switch-1
+    type: switch
+    status: active
+  - name: switch-2
+    type: switch
+    status: active
+  - name: server-1
+    type: server
+    status: active
+  - name: server-2
+    type: server
+    status: active
+  - name: server-3
+    type: server
+    status: degraded
+  - name: server-4
+    type: server
+    status: inactive
+  - name: isolated-node
+    type: server
+    status: active
+
+connections:
+  - from: gateway-1
+    to: firewall-1
+    latency: 2
+  - from: firewall-1
+    to: router-1
+    latency: 3
+  - from: firewall-1
+    to: router-2
+    latency: 4
+  - from: router-1
+    to: switch-1
+    latency: 5
+  - from: router-2
+    to: switch-2
+    latency: 6
+  - from: switch-1
+    to: server-1
+    latency: 10
+  - from: switch-1
+    to: server-2
+    latency: 12
+  - from: switch-2
+    to: server-3
+    latency: 8
+  - from: switch-2
+    to: server-4
+    latency: 9

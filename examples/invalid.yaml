@@ -1,0 +1,30 @@
+nodes:
+  - name: router-1
+    type: router
+    status: active
+  - name: router-1
+    type: switch
+    status: active
+  - name: server-1
+    type: server
+    status: active
+  - name: bad-node
+    type: unknown-type
+    status: active
+
+connections:
+  - from: router-1
+    to: router-1
+    latency: 5
+  - from: router-1
+    to: ghost-node
+    latency: 10
+  - from: router-1
+    to: server-1
+    latency: 15
+  - from: server-1
+    to: router-1
+    latency: 15
+  - from: router-1
+    to: server-1
+    latency: -5

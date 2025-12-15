@@ -1,0 +1,24 @@
+nodes:
+  - name: gateway-1
+    type: gateway
+    status: active
+  - name: router-1
+    type: router
+    status: active
+  - name: server-1
+    type: server
+    status: active
+  - name: server-2
+    type: server
+    status: active
+
+connections:
+  - from: gateway-1
+    to: router-1
+    latency: 5
+  - from: router-1
+    to: server-1
+    latency: 10
+  - from: router-1
+    to: server-2
+    latency: 15
