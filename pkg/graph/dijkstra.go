@@ -27,6 +27,9 @@ func (g *Graph) ShortestPath(from, to string) ([]string, float64, bool) {
 	if !g.HasNode(from) || !g.HasNode(to) {
 		return nil, 0, false
 	}
+	if from == to {
+		return []string{from}, 0, true
+	}
 
 	dist := make(map[string]float64)
 	prev := make(map[string]string)
@@ -43,6 +46,9 @@ func (g *Graph) ShortestPath(from, to string) ([]string, float64, bool) {
 		current := heap.Pop(pq).(*priorityItem)
 		if current.cost > dist[current.node] {
 			continue
+		}
+		if current.node == to {
+			break
 		}
 		for _, edge := range g.Adjacency[current.node] {
 			newCost := dist[current.node] + edge.Weight
