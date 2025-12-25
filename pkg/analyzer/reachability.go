@@ -10,23 +10,9 @@ func FindUnreachable(g *graph.Graph) []models.UnreachablePair {
 	nodes := g.NodeOrder
 
 	for i := range nodes {
-		visited := make(map[string]bool)
-		queue := []string{nodes[i]}
-		visited[nodes[i]] = true
-
-		for len(queue) > 0 {
-			cur := queue[0]
-			queue = queue[1:]
-			for _, edge := range g.Adjacency[cur] {
-				if !visited[edge.To] {
-					visited[edge.To] = true
-					queue = append(queue, edge.To)
-				}
-			}
-		}
-
+		reachable := bfsReachable(g, nodes[i])
 		for j := range nodes {
-			if i != j && !visited[nodes[j]] {
+			if i != j && !reachable[nodes[j]] {
 				pairs = append(pairs, models.UnreachablePair{From: nodes[i], To: nodes[j]})
 			}
 		}
@@ -35,17 +21,14 @@ func FindUnreachable(g *graph.Graph) []models.UnreachablePair {
 	return pairs
 }
 
-func IsReachable(g *graph.Graph, from, to string) bool {
+func bfsReachable(g *graph.Graph, start string) map[string]bool {
 	visited := make(map[string]bool)
-	queue := []string{from}
-	visited[from] = true
+	queue := []string{start}
+	visited[start] = true
 
 	for len(queue) > 0 {
 		cur := queue[0]
 		queue = queue[1:]
-		if cur == to {
-			return true
-		}
 		for _, edge := range g.Adjacency[cur] {
 			if !visited[edge.To] {
 				visited[edge.To] = true
@@ -54,5 +37,9 @@ func IsReachable(g *graph.Graph, from, to string) bool {
 		}
 	}
 
-	return false
+	return visited
+}
+
+func IsReachable(g *graph.Graph, from, to string) bool {
+	return bfsReachable(g, from)[to]
 }
