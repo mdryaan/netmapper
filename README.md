@@ -1,4 +1,4 @@
-# 🗺️ NetMapper — Network Topology Visualizer
+# NetMapper — Network Topology Visualizer
 
 > Map, analyze, and export your network topology from the terminal.
 
@@ -9,38 +9,19 @@
 
 ---
 
-<p align="center">
-  <img src="public/screenshots/home.png" alt="NetMapper home screen" width="800"/>
-</p>
-
----
-
-<table>
-  <tr>
-    <td><img src="public/screenshots/visualize.png" alt="visualize command" width="380"/></td>
-    <td><img src="public/screenshots/analyze.png" alt="analyze command" width="380"/></td>
-  </tr>
-  <tr>
-    <td><img src="public/screenshots/path.png" alt="path command" width="380"/></td>
-    <td><img src="public/screenshots/home.png" alt="nodes command" width="380"/></td>
-  </tr>
-</table>
-
----
-
 ## Features
 
-- 📄 Load topology from **YAML or JSON** config files
-- 🖥️ Supports node types: `router`, `switch`, `server`, `gateway`, `firewall`
-- 🔍 **Dijkstra shortest path** between any two nodes with latency cost
-- 🚨 Detect **unreachable nodes**, isolated clusters, and invalid connections
-- ✅ **Config validation** — duplicate nodes, self-loops, missing refs, negative latency
-- 🌐 **ASCII graph** rendering directly in the terminal
-- 📊 **Connection matrix** — visual latency grid across all nodes
-- 📈 **Summary statistics** — total nodes, avg degree, type distribution
-- 📤 **Export** reports as JSON, CSV, or plain text
-- 🎨 Colorized output — green healthy, yellow warnings, red errors
-- ⚖️ Weighted connections (latency values in milliseconds)
+- Load topology from **YAML or JSON** config files
+- Supports node types: `router`, `switch`, `server`, `gateway`, `firewall`
+- **Dijkstra shortest path** between any two nodes with latency cost
+- Detect **unreachable nodes**, isolated clusters, and invalid connections
+- **Config validation** — duplicate nodes, self-loops, missing refs, negative latency
+- **ASCII graph** rendering directly in the terminal
+- **Connection matrix** — visual latency grid across all nodes
+- **Summary statistics** — total nodes, avg degree, type distribution
+- **Export** reports as JSON, CSV, or plain text
+- Colorized output — green healthy, yellow warnings, red errors
+- Weighted connections (latency values in milliseconds)
 
 ---
 
@@ -106,36 +87,7 @@ connections:
 
 ## Architecture
 
-```mermaid
-graph TD
-    A[CLI Commands<br/>cmd/] --> B[Parser<br/>pkg/parser]
-    B --> C[Models<br/>internal/models]
-    C --> D[Graph Builder<br/>pkg/graph]
-    D --> E[Analyzer<br/>pkg/analyzer]
-    D --> F[Visualizer<br/>pkg/visualizer]
-    E --> G[Exporter<br/>pkg/exporter]
-    E --> H[Output<br/>pkg/output]
-    F --> H
-    G --> H
-
-    subgraph "Graph Engine"
-        D
-        D1[Dijkstra]
-        D --> D1
-    end
-
-    subgraph "Analysis"
-        E
-        E1[Reachability]
-        E2[Validator]
-        E3[Isolated]
-        E4[Stats]
-        E --> E1
-        E --> E2
-        E --> E3
-        E --> E4
-    end
-```
+![Architecture diagram](./public/screenshots/arch4.png)
 
 ---
 
@@ -158,7 +110,7 @@ cd netmapper
 go mod tidy
 
 # Build the binary
-go build -o netmapper ./...
+go build -o netmapper .
 
 # Run
 ./netmapper --help

@@ -4,12 +4,22 @@
 
 **Requirements:** Go 1.21+, Git, make
 
+1. Fork the repository on GitHub: [github.com/mdryaan/netmapper](https://github.com/mdryaan/netmapper)
+
+2. Clone your fork (not the original):
+
 ```bash
-git clone https://github.com/mdryaan/netmapper.git
+git clone https://github.com/your_username/netmapper.git
 cd netmapper
 go mod tidy
 make build
 ./netmapper --help
+```
+
+3. Add the upstream remote so you can pull future changes:
+
+```bash
+git remote add upstream https://github.com/mdryaan/netmapper.git
 ```
 
 Run against the example configs to verify your build:
